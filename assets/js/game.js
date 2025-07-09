@@ -13,6 +13,7 @@ let game = {
     "telefoniafixa",
     "wifiicon"
   ],
+  
   // Array que armazenará todas as cartas do jogo
   cards: null,
 
