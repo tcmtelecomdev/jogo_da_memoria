@@ -2,16 +2,16 @@
 let game = {
   // Lista de tecnologias (pares de cartas) disponíveis no jogo
   techs: [
-    "90fm",
-    "95fm",
-    "98fm",
-    "bancah",
-    "boxpremium",
+    "tcm100rn",
+    "800megas",
+    "cameras",
     "globoplay",
-    "leveduca",
-    "minuto",
     "premiere",
+    "tcmmovel",
+    "tcmtv",
     "telecine",
+    "telefoniafixa",
+    "wifiicon"
   ],
   // Array que armazenará todas as cartas do jogo
   cards: null,
