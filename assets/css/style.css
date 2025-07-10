@@ -85,30 +85,40 @@ body {
   gap: 5px;
 }
 
+.reset-icon {
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.reset-icon:hover {
+  transform: rotate(90deg);
+  color: crimson;
+}
+
 #gameStart {
   position: absolute;
   width: 100%;
   height: 100%;
   background: url('../img/background.png') no-repeat center center;
-  /* background-color: rgba(0, 0, 0, 0.9); */
   background-size: cover;
   color: #ffffff;
-  font-size: 2rem;
-  display: flex; /* none play game */
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  top: 0;
+  padding: 20px;
+  text-align: center;
 }
 
 .logo-topo {
-  position: absolute;
-  top: 250px;
-  width: 280px;
+  width: 220px;
   max-width: 80%;
-  left: 50%;
-  transform: translateX(-50%);
+  height: auto;
+  margin-bottom: 20px;
 }
+
 
 
 #start {
@@ -201,5 +211,38 @@ body {
   .icon {
     width: 50px;
     height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-topo {
+    width: 140px;
+    margin-top: 10px;
+  }
+
+  .mensagem h1 {
+    font-size: 1.6rem;
+  }
+
+  #start {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}
+
+.mensagem h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .mensagem h1 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+
+  .logo-topo {
+    width: 160px;
   }
 }

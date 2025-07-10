@@ -3,15 +3,15 @@ let game = {
   // Lista de tecnologias (pares de cartas) disponíveis no jogo
   techs: [
     "tcm100rn",
-    "800megas",
-    "cameras",
-    "globoplay",
-    "premiere",
-    "tcmmovel",
-    "tcmtv",
-    "telecine",
-    "telefoniafixa",
-    "wifiicon"
+    // "800megas",
+    // "cameras",
+    // "globoplay",
+    // "premiere",
+    // "tcmmovel",
+    // "tcmtv",
+    // "telecine",
+    // "telefoniafixa",
+    // "wifiicon"
   ],
   
   // Array que armazenará todas as cartas do jogo

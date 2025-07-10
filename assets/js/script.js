@@ -15,15 +15,18 @@ function startGame() {
   // Esconde a tela de início do jogo
   let gameStartLayer = document.getElementById("gameStart");
   gameStartLayer.style.display = "none";
-  
+
+  // ✅ Limpa o tabuleiro antes de criar novas cartas
+  document.getElementById("gameBoard").innerHTML = "";
+
   // Inicia a trilha sonora do jogo
   cardStart.play();
-  
+
   // Funções relacionadas ao tempo do jogo
   stopTime();         // Para o tempo
   verificarLocalStorage(); // Verifica se há registros no armazenamento local
   startTime();        // Inicia o tempo
-  
+
   // Inicializa as cartas do jogo
   initializeCards(game.createCardsFromTechs()); // Cria e exibe as cartas
 }
@@ -103,10 +106,14 @@ function flipCard() {
 
           // Exibe o resultado do jogo
           let resultadoP = document.getElementById("resultado");
-          resultadoP.textContent = `Parabéns! Tempo de jogo: ${calculateTime(time)}`;
+          resultadoP.innerHTML = `Parabéns! 🥳<br><br>Tempo de jogo ${calculateTime(time)} ⏱️`;
 
           // Compara o tempo atual com o recorde anterior
           compararTime(time);
+          // Volta para tela inicial após 3 segundos
+          setTimeout(() => {
+            restart();
+          }, 5000);
         }
       } else {
         // Se as cartas viradas não forem iguais, vira as cartas de volta após 1 segundo
@@ -125,12 +132,25 @@ function flipCard() {
 
 // Função para reiniciar o jogo
 function restart() {
-  game.clearCards();      // Limpa as cartas
-  compararTime(time);     // Compara o tempo com o recorde
-  startGame();            // Inicia o jogo novamente
-  cardStart.play();      // Toca o som de início do jogo
+  game.clearCards();          // Limpa as cartas
+  compararTime(time);         // Atualiza o recorde se necessário
+  pauseTime();                // Para o tempo atual
+  stopTime();                 // Reseta o contador
+  time = 0;                   // Zera a variável de tempo
+
+  // Oculta a tela de game over
   let gameOverLayer = document.getElementById("gameOver");
-  gameOverLayer.style.display = "none"; // Esconde a tela de fim de jogo
+  gameOverLayer.style.display = "none";
+
+  // Exibe a tela inicial novamente
+  let gameStartLayer = document.getElementById("gameStart");
+  gameStartLayer.style.display = "flex";
+
+  // ✅ Atualiza o recorde exibido na tela inicial
+  verificarLocalStorage();
+
+  // ✅ Limpa o tabuleiro de cartas
+  document.getElementById("gameBoard").innerHTML = "";
 }
 
 // Funções relacionadas ao tempo do jogo
@@ -180,23 +200,41 @@ function verificarLocalStorage() {
 }
 
 function compararTime(time) {
-  let recorde = document.getElementById("recorde"); // Elemento para exibir o recorde
-  let timeStorage = localStorage.getItem("time"); // Obtém o tempo armazenado localmente
-  let timeA = calculateTime(time); // Calcula o tempo atual do jogo
+  const tempoAtual = calculateTime(time); // Ex: "00:05"
+  const tempoSalvo = localStorage.getItem("time");
 
-  let time1 = new Date("2022-01-01 " + timeStorage); // Converte o tempo armazenado em formato de data
-  let time2 = new Date("2022-01-01 " + timeA); // Converte o tempo atual em formato de data
+  const recorde = document.getElementById("recorde");
 
-  if (time1 < time2) {
-    localStorage.setItem("time", timeStorage); // Atualiza o recorde armazenado
-    recorde.textContent = timeStorage; // Exibe o recorde atualizado na tela
+  if (!tempoSalvo) {
+    // Primeiro recorde
+    localStorage.setItem("time", tempoAtual);
+    recorde.textContent = tempoAtual;
+    return;
+  }
+
+  // Convertendo tempos para segundos
+  const [minA, segA] = tempoAtual.split(":").map(Number);
+  const [minB, segB] = tempoSalvo.split(":").map(Number);
+
+  const segundosAtual = minA * 60 + segA;
+  const segundosSalvo = minB * 60 + segB;
+
+  // Salva o novo tempo se for menor
+  if (segundosAtual < segundosSalvo) {
+    localStorage.setItem("time", tempoAtual);
+    recorde.textContent = tempoAtual;
   } else {
-    localStorage.setItem("time", timeA); // Atualiza o recorde armazenado
-    recorde.textContent = timeA; // Exibe o recorde atualizado na tela
+    recorde.textContent = tempoSalvo;
   }
 }
 
 // Função de inicialização quando a página é carregada
-document.addEventListener("DOMContentLoaded", function() {
-  localStorage.clear(); // Limpa todos os dados armazenados localmente
+document.addEventListener("DOMContentLoaded", function () {
+  verificarLocalStorage(); // ← exibe o tempo recorde salvo
 });
+
+document.getElementById("resetRecorde").addEventListener("click", function () {
+  localStorage.removeItem("time");
+  verificarLocalStorage(); // Atualiza a exibição do recorde
+});
+
