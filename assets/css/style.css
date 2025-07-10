@@ -82,6 +82,7 @@ body {
 
 .display {
   display: flex;
+  align-items: center; /* ✅ alinha verticalmente */
   gap: 5px;
 }
 
