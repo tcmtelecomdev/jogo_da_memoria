@@ -5,7 +5,8 @@
 }
 
 body {
-  font-family: "Righteous", sans-serif;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,17 +101,23 @@ body {
   top: 0;
 }
 
-.logo {
-  width: 150px;
+.logo-topo {
+  position: absolute;
+  top: 250px;
+  width: 280px;
   max-width: 80%;
-  height: auto;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
+
 #start {
-  font-family: "Righteous", sans-serif;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: white;
   padding: 10px 20px;
   font-size: 1rem;
-  background-color: rgb(238, 215, 12);
+  background-color: #ff3333;
   border: none;
   border-radius: 5px;
 }
@@ -130,7 +137,8 @@ body {
 }
 
 #restart {
-  font-family: "Righteous", sans-serif;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
   padding: 10px 20px;
   font-size: 1rem;
   background-color: rgb(238, 215, 12);
